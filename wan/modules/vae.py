@@ -249,12 +249,13 @@ class AttentionBlock(nn.Module):
                                                      2).contiguous().chunk(
                                                          3, dim=-1)
 
+        x = sageattn(q.to(torch.bfloat16), k.to(torch.bfloat16), v, tensor_layout='NHD')
         # apply attention
-        x = sageattn(
-            q,
-            k,
-            v,
-        )
+        # x = sageattn(
+        #     q,
+        #     k,
+        #     v,
+        # )
         x = x.squeeze(1).permute(0, 2, 1).reshape(b * t, c, h, w)
 
         # output
