@@ -19,7 +19,7 @@ except ModuleNotFoundError:
 
 try:
     import flash_attn
-    FLASH_ATTN_2_AVAILABLE = True
+    FLASH_ATTN_2_AVAILABLE = False
 except ModuleNotFoundError:
     FLASH_ATTN_2_AVAILABLE = False
 
