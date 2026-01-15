@@ -543,8 +543,7 @@ def generate(args):
         wan_i2v.enable_vram_management(
             num_persistent_param_in_dit=args.num_persistent_param_in_dit
         )
-    
-    generated_list = []
+
     with open(args.input_json, 'r', encoding='utf-8') as f:
         input_data = json.load(f)
         
@@ -553,6 +552,7 @@ def generate(args):
     os.makedirs(args.audio_save_dir,exist_ok=True)
     
     for job_item in input_data['items']:
+        generated_list = []
         conds_list = []
         if args.scene_seg and is_video(job_item['cond_video']):
             time_list, cond_list = shot_detect(job_item['cond_video'], args.audio_save_dir)
