@@ -552,9 +552,8 @@ def generate(args):
     args.audio_save_dir = os.path.join(args.audio_save_dir, input_data['items'][0]['cond_video'].split('/')[-1].split('.')[0])
     os.makedirs(args.audio_save_dir,exist_ok=True)
     
-    conds_list = []
-
     for job_item in input_data['items']:
+        conds_list = []
         if args.scene_seg and is_video(job_item['cond_video']):
             time_list, cond_list = shot_detect(job_item['cond_video'], args.audio_save_dir)
             if len(time_list)==0:
@@ -652,7 +651,7 @@ def generate(args):
                 args.save_file = f"{args.task}_{args.size.replace('*','x') if sys.platform=='win32' else args.size}_{args.ulysses_size}_{args.ring_size}_{formatted_prompt}_{formatted_time}"
 
             sum_video = torch.cat(generated_list, dim=1)
-            save_video_ffmpeg(sum_video, job_item['save_path'], [job_item['video_audio']], high_quality_save=False)
+            save_video_ffmpeg(sum_video, job_item['save_path'], [job_item['video_audio']], quality=9, high_quality_save=False)
 
         logging.info(f"Saving generated video to {args.save_file}.mp4")
     logging.info("Finished.")
